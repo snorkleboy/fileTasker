@@ -1,0 +1,10 @@
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\bin\Debug\netcoreapp2.0\FileTasker.deps.json
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\bin\Debug\netcoreapp2.0\FileTasker.runtimeconfig.json
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\bin\Debug\netcoreapp2.0\FileTasker.runtimeconfig.dev.json
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\bin\Debug\netcoreapp2.0\FileTasker.dll
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\bin\Debug\netcoreapp2.0\FileTasker.pdb
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.csproj.CoreCompileInputs.cache
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.AssemblyInfoInputs.cache
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.AssemblyInfo.cs
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.dll
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.pdb
