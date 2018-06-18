@@ -8,3 +8,4 @@ C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTa
 C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.AssemblyInfo.cs
 C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.dll
 C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.pdb
+C:\Users\TimKh\source\repos\FileTasker\FileTasker\obj\Debug\netcoreapp2.0\FileTasker.csprojAssemblyReference.cache
