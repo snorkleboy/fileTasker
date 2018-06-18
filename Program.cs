@@ -16,19 +16,43 @@ class Manager
 {
     private Dictionary<String, String> fileStatusMap;
     private String directory;
-    private List<Job> jobs;
+    private List<Task<Status>> jobs;
     public Manager(String dir)
     {
         directory = dir;
         fileStatusMap = new Dictionary<String, string>();
-        jobs = new List<Job>();
+        jobs = new List<Task<Status>>();
     }
     public void Run()
     {
         while (true)
         {
             ScanDirectory();
+            CheckTasks();
             Thread.Sleep(2000);
+        }
+    }
+    private void CheckTasks()
+    {
+        List<Task<Status>> todelete = new List<Task<Status>>();
+        for(int i =0;i<jobs.Count;i++) 
+        {
+            Task<Status> task = jobs[i];
+            if ( task.Status.ToString() == "RanToCompletion")
+            {
+                todelete.Add(task);
+                Console.WriteLine("\n\nTASK COMPLETE, id:{0}", task.Id);
+                Console.WriteLine("RESULT:" );
+                foreach(int fib in task.Result.doneWork)
+                {
+                    Console.Write(" {0} ", fib);
+                }
+            }
+
+        }
+        foreach(Task<Status> task in todelete)
+        {
+            jobs.Remove(task);
         }
     }
     private void ScanDirectory()
@@ -36,27 +60,32 @@ class Manager
         try
         {
             var txtFiles = Directory.EnumerateFiles(directory, "*.work");
-            Action<Status> callback = (Status status) =>
+            Action<Status> ProgressCallback = (Status status) =>
             {
-                Console.WriteLine("{0},{1}", status.i, status.status);
+                Console.WriteLine("task:{0},i:{1},status:{2}",status.taskName, status.i, status.status);
                 Console.WriteLine("done work :");
                 foreach (int fib in status.doneWork) { Console.Write($" {fib} "); };
+                Console.WriteLine("\n-------");
+
             };
 
             foreach (string currentFile in txtFiles)
             {
                 string fileName = currentFile.Substring(directory.Length + 1);
+
                 if (!fileStatusMap.ContainsKey(fileName)){
-                    Console.WriteLine("{0},{1}", fileName, currentFile);
+                    Console.WriteLine("contatains {0},{1}", fileName, currentFile);
 
                     fileStatusMap[fileName] = "init";
+                    Task<Status> task = Task<Status>.Factory.StartNew(() => { return new Job(20, 5, ProgressCallback).work().getStatus(); });
+
                     jobs.Add(
-                        new Job(20,5, callback).work()
+                        task
                     );
                 }
                 else
                 {
-                    Console.WriteLine("no new files");
+                   // Console.WriteLine("no new files");
                 }
             }
         }
@@ -73,20 +102,23 @@ class Status
     public String status;
     public int i;
     public int[] doneWork;
+    public int taskName;
 
-    public Status()
+    public Status(int taskId)
     {
         status = "init";
         i = 0;
         doneWork = new int[i];
+        taskName = taskId;
     }
-    public Status(int iin, int[] doneWorkin, String statusIn)
+    public Status(int iin, int[] doneWorkin, String statusIn, int taskId)
     {
         i = iin;
         doneWork = doneWorkin;
         status = statusIn;
+        taskName = taskId;
     }
-    
+
 }
 class Job
 {
@@ -98,7 +130,7 @@ class Job
     int getTo;
     public Job(int getToIn, int reportAft, Action<Status> pcb)
     {
-        status = new Status();
+        status = new Status((int)Task.CurrentId);
         progressCallback = pcb;
         reportAfter = reportAft;
         getTo = getToIn;
@@ -116,7 +148,7 @@ class Job
             res[i] = Fib(i);
             if (i%reportAfter == 0)
             {
-                status = new Status(i, res, "in progress");
+                status = new Status(i, res, "in progress", (int)Task.CurrentId);
                 CB(status);
             }
         }
